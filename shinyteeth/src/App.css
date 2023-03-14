@@ -1,0 +1,25 @@
+.darkSection {
+    margin: 0;
+    padding: 5rem;
+    min-width: 100vw;
+    min-height: 80vh;
+    background-color: #37306B;
+    color: whitesmoke;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.lightSection {
+    margin: 0;
+    padding: 5rem;
+    min-width: 100vw;
+    min-height: 80vh;
+    background-color: whitesmoke;
+    color: #37306B;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}

@@ -1,0 +1,26 @@
+/* Styles for Footer section layout */
+.darkFooter {
+    margin: 0;
+    padding: 30px ;
+    min-width: 100vw;
+    min-height: 40vh;
+    background-color: #37306B;
+    color: whitesmoke;
+    display:flex;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.textLogo {
+    font-family: 'Montserrat';
+    font-weight: bolder;
+    font-size: 2.4rem;
+    color: whitesmoke;
+}
+
+.tagLine {
+    font-family: 'Karla';
+    font-weight: bolder;
+    font-size: 1.2rem;
+    color: whitesmoke;
+}

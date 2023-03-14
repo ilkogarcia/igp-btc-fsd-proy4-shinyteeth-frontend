@@ -1,0 +1,7 @@
+/* Login container styles */
+.registerContainer {
+    background-color: whitesmoke;
+    padding: 2rem;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}

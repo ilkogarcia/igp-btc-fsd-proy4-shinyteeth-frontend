@@ -1,0 +1,39 @@
+/* Styles for Home page layout */
+.mainHomeContainer {
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.bannerTop {
+    margin: 0;
+    padding: 5rem;
+    min-width: 100vw;
+    min-height: 80vh;
+    background-image: url(../../assets/images/pexels-iamluisao-12917343.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.titleBig {
+    font-family: 'Montserrat';
+    font-weight: bolder;
+    font-size: 3.2rem;
+    color: #37306B;
+}
+
+.subtitleBig {
+    font-family: 'Karla';
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #54b3d6;
+}
