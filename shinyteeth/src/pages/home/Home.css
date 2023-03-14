@@ -19,21 +19,35 @@
     background-size: cover;
     background-position: center;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
 }
 
-.titleBig {
+.bannerTopContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-content: start;
+    row-gap: 2;
+}
+
+
+.title {
     font-family: 'Montserrat';
     font-weight: bolder;
-    font-size: 3.2rem;
+    font-size: 6rem;
+    line-height: 6rem;
     color: #37306B;
 }
 
-.subtitleBig {
+.subtitle {
+    font-family: 'Montserrat';
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #54b3d6;
+}
+
+.text {
     font-family: 'Karla';
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 500;
     color: #54b3d6;
 }

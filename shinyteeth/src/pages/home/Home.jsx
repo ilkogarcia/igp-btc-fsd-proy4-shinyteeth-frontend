@@ -19,26 +19,26 @@ export const Home = () => {
   return (
     <div className='mainHomeContainer'>
       <Stack gap={0}>
-        <div className="bannerTop">
-          <Container fluid>
-              <Row>
+        <div className='bannerTop'>
+          <Container className='bannerTopContainer'>
+              <Row xs="auto">
                   <Col xs lg='6'>
-                    <span className='titleBig'>200€ de descuento</span>
+                    <span className='title'>200€</span>
                   </Col>
               </Row>
-              <Row>
+              <Row xs="auto">
                   <Col xs lg='6'>
-                    <span className='subtitleBig'>en tu próximo tratamiento de ortodoncia invisible o implante + corona</span>
+                    <span className='subtitle'>price discount</span>
                   </Col>
               </Row>
-              <Row>
+              <Row xs="auto">
                   <Col xs lg='6'>
-                    <Button
-                        type="submit"
-                        className="button is-large"
-                        onClick={handleClic}>
-                        Get your free appointment
-                    </Button>
+                    <span className='text'>in invisible orthodontic treatments or implant + crown</span>
+                  </Col>
+              </Row>
+              <Row xs="auto" className="mt-3">
+                  <Col xs lg='6'>
+                    <Button variant="info" size="lg" type="submit" onClick={handleClic}>Get your free appointment</Button>
                   </Col>
               </Row>
           </Container>
