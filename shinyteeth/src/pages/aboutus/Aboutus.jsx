@@ -5,15 +5,12 @@ import React from 'react'
 import './Aboutus.css'
 
 // Imports from React-Bootstrap
-import Stack from 'react-bootstrap/Stack'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import { Stack, Container, Row, Col } from 'react-bootstrap'
 
 // AboutUs page payout
 export const Aboutus = () => {
   return (
-    <div className='mainAboutusContainer'>
+    <div className='aboutUsMainContainer'>
       <Stack gap={0}>
         <div className="lightSection">
             <Container fluid>

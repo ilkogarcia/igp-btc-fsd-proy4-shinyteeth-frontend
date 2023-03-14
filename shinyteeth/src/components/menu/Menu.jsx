@@ -21,13 +21,13 @@ export const Menu = () => {
           Shiny Teeth
         </Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link className='menuText' as={Link} to="/">
+          <Nav.Link className='menuText' as={Link} to="/services">
             Services
           </Nav.Link>
           <Nav.Link className='menuText' as={Link} to="/aboutus">
             Who we are
           </Nav.Link>
-          <Nav.Link className='menuText' as={Link} to="/">
+          <Nav.Link className='menuText' as={Link} to="/contactus">
             Contact us
           </Nav.Link>
         </Nav>

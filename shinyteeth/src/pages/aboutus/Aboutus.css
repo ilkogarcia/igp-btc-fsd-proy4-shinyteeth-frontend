@@ -1,5 +1,5 @@
 /* Styles for AboutUs page layout */
-.mainAboutusContainer{
+.aboutUsMainContainer{
     margin: 0;
     padding: 0;
     min-width: 100vw;
@@ -8,4 +8,3 @@
     justify-content: center;
     align-content: center;
 }
-
