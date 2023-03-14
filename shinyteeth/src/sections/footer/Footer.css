@@ -4,8 +4,8 @@
     padding: 30px ;
     min-width: 100vw;
     min-height: 40vh;
-    background-color: #37306B;
-    color: whitesmoke;
+    /* background-color: #37306B;
+    color: whitesmoke; */
     display:flex;
     align-content: center;
     justify-content: space-between;
@@ -15,12 +15,39 @@
     font-family: 'Montserrat';
     font-weight: bolder;
     font-size: 2.4rem;
-    color: whitesmoke;
 }
 
 .tagLine {
     font-family: 'Karla';
-    font-weight: bolder;
-    font-size: 1.2rem;
-    color: whitesmoke;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.textCopy {
+    font-family: 'Karla';
+    font-weight: 100;
+    font-size: 0.8rem;
+    color: darkgray;
+}
+
+
+.footerColumTitle {
+    font-family: 'Karla';
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.footerColumText {
+    font-family: 'Karla';
+    font-weight: 100;
+    font-size: 0.8rem;
+
+}
+
+.socialIcon {
+    color: white;
+}
+
+.socialIcon:hover {
+    color: darkgray;
 }
