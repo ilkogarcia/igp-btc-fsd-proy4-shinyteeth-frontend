@@ -11,19 +11,22 @@
     justify-content: space-between;
 }
 
-.textLogo {
+.footerLogo {
     font-family: 'Montserrat';
     font-weight: bolder;
     font-size: 2.4rem;
+    line-height: 1rem;
 }
 
-.tagLine {
+.footerTagline {
     font-family: 'Karla';
-    font-weight: bold;
+    font-weight: 200;
     font-size: 1rem;
+    line-height: 1rem;
+    color: darkgray;
 }
 
-.textCopy {
+.footerCopyright {
     font-family: 'Karla';
     font-weight: 100;
     font-size: 0.8rem;
@@ -34,20 +37,48 @@
 .footerColumTitle {
     font-family: 'Karla';
     font-weight: 500;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 }
 
 .footerColumText {
     font-family: 'Karla';
-    font-weight: 100;
-    font-size: 0.8rem;
-
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 0.8rem;
+    color: darkgray;
 }
 
-.socialIcon {
+.footerSocialIcon {
     color: white;
 }
 
-.socialIcon:hover {
+.footerSocialIcon:hover {
+    color: darkgray;
+}
+
+.footerMenu {
+    font-family: 'Karla';
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    box-shadow: inset 0 0 0 0 white;
+    padding: 0 0.25rem;
+    margin: 0 0.25rem;
+    transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+
+.footerMenu:hover {
+    color: darkgray;
+}
+
+.footerMenu:visited {
+    color: darkgray;
+}
+
+.footerMenu:active {
+    color: darkgray;
+}
+
+.footerMenu:focus {
     color: darkgray;
 }

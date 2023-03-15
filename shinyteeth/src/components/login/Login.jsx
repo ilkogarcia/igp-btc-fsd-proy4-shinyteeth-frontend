@@ -21,14 +21,14 @@ export const Login = () => {
 
   const handleImputChange = ({ target }) => {
     const { name, value } = target
-    // console.log({name, value});
-    setformState({
-      ...formState,
-      [name]: value
-    })
+    setformState({ ...formState, [name]: value })
   }
 
-  const handleFormSubmit = (event) => {
+  const checkError = ({ event }) => {
+    let error = ''
+  }
+
+  const handleFormSubmit = ({event}) => {
     // event.persist();
     console.log(event)
   }
@@ -47,7 +47,8 @@ export const Login = () => {
                                 name="userEmail"
                                 placeholder="Enter email"
                                 defaultValue={ userEmail }
-                                onChange={ handleImputChange }
+                                onChange={ (event) => handleImputChange(event) }
+                                onBlur={ (event) => checkError(event) }
                             />
                         </Form.Group>
 
@@ -57,7 +58,7 @@ export const Login = () => {
                                 required
                                 type="password"
                                 name="userPass"
-                                placeholder="Password"
+                                placeholder="Current password"
                                 defaultValue={ userPass }
                                 onChange={ handleImputChange }
                             />
