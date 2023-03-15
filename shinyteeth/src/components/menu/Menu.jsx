@@ -14,9 +14,15 @@ import { Panel } from '../../sections/panel/Panel'
 // Navbar component
 export const Menu = () => {
   const [show, setShow] = useState(false)
+  const [option, setOption] = useState('Signin')
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  const handleClick = (option) => {
+    setOption(option)
+    handleShow()
+  }
 
   return (
     <Navbar bg="light" variant="light" sticky="top">
@@ -38,16 +44,16 @@ export const Menu = () => {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Nav>
-            <Nav.Link className='menuText' as={Link} onClick={handleShow}>
+            <Nav.Link className='menuText' as={Link} onClick={() => handleClick('Signin')}>
               Signin
             </Nav.Link>
-            <Nav.Link className='menuText' as={Link} onClick={handleShow}>
+            <Nav.Link className='menuText' as={Link} onClick={() => handleClick('Signup')}>
               Signup
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <Panel name={'Signin'} placement={'top'} scroll={true} backdrop={true} show={show} onClose={handleClose} />
+      <Panel name={option} placement={'end'} scroll={true} backdrop={true} show={show} onClose={handleClose} />
     </Navbar>
   )
 }
