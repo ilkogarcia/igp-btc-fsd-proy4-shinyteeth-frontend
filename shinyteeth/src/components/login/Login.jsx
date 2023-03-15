@@ -1,8 +1,5 @@
 // Imports from React library
-import React, { useState } from 'react'
-
-// Imports stylesheets
-import './Login.css'
+import React, { useState, useEffect } from 'react'
 
 // Imports from React-Bootstrap framework
 import Container from 'react-bootstrap/Container'
@@ -11,45 +8,111 @@ import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import { Button } from 'react-bootstrap'
 
+// Import stylesheet
+import './Login.css'
+
+// Import helpers
+import { validateForm } from '../../helpers/Validations'
+
 export const Login = () => {
-  const [formState, setformState] = useState({
-    userEmail: 'mark.otto@gmail.com',
-    userPass: 'supercalifragilistico'
+  // Estado para guardar el valor de los campos del formulario
+  const [formData, setformData] = useState({
+    email: '',
+    password: ''
   })
 
-  const { userEmail, userPass } = formState
+  // Estado para guardar si hay errores de los datos introducidos en el formulario
+  const [formDataError, setformDataError] = useState({
+    emailError: '',
+    passwordError: ''
+  })
 
+  // Estado para guardar si los datos introducidos en el formulario son validos
+  const [formDataOk, setformDataOk] = useState({
+    emailOk: false,
+    passwordOk: false
+  })
+
+  // Estado para guardar cuando el botón submmit del formulario estará activo o no
+  const [loginButtonState, setLoginButtonState] = useState(false)
+
+  ///
+
+  // Hook useEffect para gestionar el ciclo de vida del todos los componentes
+  useEffect(() => {
+    for (const data in formData) {
+      if (formData[data] === '') {
+        setLoginButtonState(false)
+        return
+      }
+    }
+
+    for (const error in formDataError) {
+      if (formDataError[error] !== '') {
+        setLoginButtonState(false)
+        return
+      }
+    }
+
+    for (const ok in formDataOk) {
+      if (formDataOk[ok] === false) {
+        setLoginButtonState(false)
+        return
+      }
+    }
+
+    setLoginButtonState(true)
+  })
+
+  const { email, password } = formData
+
+  // Función para validar las entradas de datos del formulario
+  const checkError = ({ target }) => {
+    const { name, value, required } = target
+    const result = validateForm(name, value, required)
+
+    setformDataOk((prevState) => ({
+      ...prevState,
+      [target.name + 'Ok']: result.valid
+    }))
+
+    setformDataError((prevState) => ({
+      ...prevState,
+      [target.name + 'Error']: result.message
+    }))
+  }
+
+  // Función para gestionar en tiempo real la entrada de datos
   const handleImputChange = ({ target }) => {
-    const { name, value } = target
-    setformState({ ...formState, [name]: value })
+    setformData((prevState) => ({
+      ...prevState,
+      [target.name]: target.value
+    }))
   }
 
-  const checkError = ({ event }) => {
-    let error = ''
-  }
-
-  const handleFormSubmit = ({event}) => {
-    // event.persist();
-    console.log(event)
+  // Función para gestionar el clic en el botón del formulario
+  const handleFormSubmit = () => {
+    console.log(formData)
   }
 
   return (
         <Container fluid className="loginContainer">
             <Row>
                 <Col>
-                    <Form>
+                    <Form noValidate>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
                             <Form.Control
                                 required
                                 type="email"
-                                name="userEmail"
+                                name="email"
                                 placeholder="Enter email"
-                                defaultValue={ userEmail }
+                                defaultValue={ email }
                                 onChange={ (event) => handleImputChange(event) }
                                 onBlur={ (event) => checkError(event) }
                             />
+                            <Form.Text className='errorMessage'>{formDataError.emailError}</Form.Text>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -57,17 +120,19 @@ export const Login = () => {
                             <Form.Control
                                 required
                                 type="password"
-                                name="userPass"
+                                name="password"
                                 placeholder="Current password"
-                                defaultValue={ userPass }
-                                onChange={ handleImputChange }
+                                defaultValue={ password }
+                                onChange={ (event) => handleImputChange(event) }
+                                onBlur={ (event) => checkError(event) }
                             />
+                            <Form.Text className='errorMessage'>{formDataError.passwordError}</Form.Text>
                         </Form.Group>
 
                         <Button
-                            type="submit"
-                            className="button is-large"
-                            onClick={handleFormSubmit}>
+                            className='button is-large'
+                            onClick={handleFormSubmit}
+                            disabled={!loginButtonState}>
                             Sign In
                         </Button>
 

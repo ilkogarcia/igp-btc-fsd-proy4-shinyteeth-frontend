@@ -2,3 +2,8 @@
 .loginContainer {
     padding: 1rem;
 }
+
+.errorMessage {
+    font-weight: 500;
+    color: red;
+}
