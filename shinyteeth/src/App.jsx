@@ -1,11 +1,15 @@
 // Immports from Reacts
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // Immports from Reacts Router
 import { Route, Routes } from 'react-router-dom'
 
 // Import Web Font Loader
 import WebFont from 'webfontloader'
+
+// Import SnackBar fron Notistack
+import { SnackbarProvider } from 'notistack'
+import { SnackbarUtilitiesConfigurator } from './utilities/SnackbarManager'
 
 // Import app pages
 import { Home } from './pages/home/Home'
@@ -15,14 +19,23 @@ import { Contactus } from './pages/contactus/Contactus'
 import { PrivacyPolicy } from './pages/privacypolicy/PrivacyPolicy'
 import { TermsConditions } from './pages/termscontitions/TermsConditions'
 
-// Immport app sections and components
+// Import app sections and components
 import { Menu } from './components/menu/Menu'
 import { Footer } from './sections/footer/Footer'
+
+// Import app services
+import { testingService } from './services/testing.service'
 
 // Import stylesheets
 import './App.css'
 
 export const App = () => {
+  const [morty, setMorty] = useState({})
+  const fetchMorty = async () => {
+    const { data } = await testingService()
+    setMorty(data)
+  }
+
   // Load Google fonts used on App
   useEffect(() => {
     WebFont.load({
@@ -30,6 +43,7 @@ export const App = () => {
         families: ['Montserrat', 'Karla']
       }
     })
+    fetchMorty()
   }, [])
 
   return (
@@ -44,7 +58,10 @@ export const App = () => {
           <Route path='/terms' element={<TermsConditions />} />
           <Route path="*" element={<Home />} />
       </Routes>
-    <Footer />
+      <SnackbarProvider>
+        <SnackbarUtilitiesConfigurator />
+      </SnackbarProvider>
+      <Footer />
     </>
   )
 }

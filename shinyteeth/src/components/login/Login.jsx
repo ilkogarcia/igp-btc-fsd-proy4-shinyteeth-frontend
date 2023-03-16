@@ -107,7 +107,7 @@ export const Login = () => {
                                 required
                                 type="email"
                                 name="email"
-                                placeholder="Enter email"
+                                placeholder="name@example.com"
                                 defaultValue={ email }
                                 onChange={ (event) => handleImputChange(event) }
                                 onBlur={ (event) => checkError(event) }
@@ -121,7 +121,7 @@ export const Login = () => {
                                 required
                                 type="password"
                                 name="password"
-                                placeholder="Current password"
+                                placeholder="*************"
                                 defaultValue={ password }
                                 onChange={ (event) => handleImputChange(event) }
                                 onBlur={ (event) => checkError(event) }

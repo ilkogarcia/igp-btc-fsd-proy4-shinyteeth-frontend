@@ -12,8 +12,9 @@ export const validateForm = (name, data, required) => {
     case 'password':
       if (data === '' && required === true) {
         return { message: 'Password is required!', valid: false }
+      } else if (data.length < 8 || data.length > 32) {
+        return { message: 'Password length is not valid!', valid: false }
       }
-      // Pendiente comprobar inyección de SQL o textos muy largos
       return { message: '', valid: true }
 
     default:
