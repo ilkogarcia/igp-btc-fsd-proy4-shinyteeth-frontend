@@ -36,13 +36,15 @@ export const App = () => {
     setMorty(data)
   }
 
-  // Load Google fonts used on App
+  // Hook that run just once
   useEffect(() => {
+    // Load Google fonts used on App
     WebFont.load({
       google: {
         families: ['Montserrat', 'Karla']
       }
     })
+    // Call API and get data
     fetchMorty()
   }, [])
 

@@ -11,10 +11,30 @@ import './Home.css'
 // Import data needed
 import { tratementsData } from '../../db/db.treatments'
 
+// Import Cloudinary classes
+import { AdvancedImage } from '@cloudinary/react'
+import { Cloudinary } from '@cloudinary/url-gen'
+
+// Import any actions required for transformations
+import { fill } from '@cloudinary/url-gen/actions/resize'
+
 export const Home = () => {
   const handleClic = (event) => {
     console.log(event)
   }
+
+  // Create a Cloudinary instance and set your cloud name.
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'dtxhybmyx'
+    }
+  })
+
+  // Instantiate a CloudinaryImage object for the image with the public ID, 'docs/models'.
+  const myImage = cld.image('docs/models')
+
+  // Resize to 250 x 250 pixels using the 'fill' crop mode
+  myImage.resize(fill().width(250).height(250))
 
   return (
     <div className='mainHomeContainer'>
@@ -47,9 +67,11 @@ export const Home = () => {
           <Container fluid>
             <Row className="justify-content-center">
               <Col xs lg='6'>
-                <p>Actualmente disponemos de dos centros en la provincia de Valencia: en Valencia capital, ubicado en el barrio de Benimaclet y en Oliva, en la comarca de la Safor. La odontología contemporánea nos exige clínicas accesibles, multidisciplinares, con profesionales altamente cualificados y en constante actualización con las nuevas tecnologías y técnicas de tratamiento.</p>
+                <p>Somos una clínicas accesible, multidisciplinar, con profesionales altamente cualificados y en constante actualización con las nuevas tecnologías y técnicas de tratamiento.</p>
               </Col>
-              <Col xs lg='6'></Col>
+              <Col xs lg='3'>
+                <AdvancedImage cldImg={ myImage } />
+              </Col>
             </Row>
           </Container>
         </div>
