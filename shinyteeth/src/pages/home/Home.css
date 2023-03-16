@@ -14,7 +14,7 @@
     padding: 5rem;
     min-width: 100vw;
     min-height: 80vh;
-    background-image: url(../../assets/images/pexels-iamluisao-12917343.jpg);
+    background-image: url(https://res.cloudinary.com/dtxhybmyx/image/upload/v1678967536/shinyteeth/pexels-iamluisao-12917343_a51mwk.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -28,7 +28,6 @@
     align-content: start;
     row-gap: 2;
 }
-
 
 .title {
     font-family: 'Montserrat';
@@ -50,4 +49,11 @@
     font-size: 1.6rem;
     font-weight: 500;
     color: #54b3d6;
+}
+
+.headline {
+    font-family: 'Karla';
+    font-size: 2rem;
+    font-weight: 100;
+    color: whitesmoke;
 }

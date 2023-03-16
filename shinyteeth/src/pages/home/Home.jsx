@@ -17,6 +17,9 @@ import { Cloudinary } from '@cloudinary/url-gen'
 
 // Import any actions required for transformations
 import { fill } from '@cloudinary/url-gen/actions/resize'
+import { sepia, outline } from '@cloudinary/url-gen/actions/effect'
+import { byRadius } from '@cloudinary/url-gen/actions/roundCorners'
+import { outer } from '@cloudinary/url-gen/qualifiers/outlineMode'
 
 export const Home = () => {
   const handleClic = (event) => {
@@ -30,11 +33,11 @@ export const Home = () => {
     }
   })
 
-  // Instantiate a CloudinaryImage object for the image with the public ID, 'docs/models'.
-  const myImage = cld.image('docs/models')
+  // Instantiate a CloudinaryImage object for the image with the public ID.
+  const myImage = cld.image('shinyteeth/pexels-bakytzhan-9951388_pplpuj')
 
-  // Resize to 250 x 250 pixels using the 'fill' crop mode
-  myImage.resize(fill().width(250).height(250))
+  // Transform the image.
+  myImage.resize(fill().width(150).height(150))
 
   return (
     <div className='mainHomeContainer'>
@@ -66,11 +69,11 @@ export const Home = () => {
         <div className="darkSection">
           <Container fluid>
             <Row className="justify-content-center">
-              <Col xs lg='6'>
-                <p>Somos una clínicas accesible, multidisciplinar, con profesionales altamente cualificados y en constante actualización con las nuevas tecnologías y técnicas de tratamiento.</p>
-              </Col>
-              <Col xs lg='3'>
+              <Col xs lg='4'>
                 <AdvancedImage cldImg={ myImage } />
+              </Col>
+              <Col xs lg='6'>
+                <p className='headline'>Somos una clínicas accesible y multidisciplinar, con profesionales altamente cualificados y en constante actualización.</p>
               </Col>
             </Row>
           </Container>
