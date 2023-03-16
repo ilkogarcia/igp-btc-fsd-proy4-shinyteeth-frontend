@@ -2,14 +2,14 @@
 import React from 'react'
 
 // Imports from React-Bootstrap
-import Stack from 'react-bootstrap/Stack'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import { Button } from 'react-bootstrap'
+import { Stack, Container, Row, Col, Button } from 'react-bootstrap'
+import { InfoCard } from '../../components/card/InfoCard'
 
 // Import stylesheet
 import './Home.css'
+
+// Import data needed
+import { tratementsData } from '../../db/db.treatments'
 
 export const Home = () => {
   const handleClic = (event) => {
@@ -45,7 +45,7 @@ export const Home = () => {
         </div>
         <div className="darkSection">
           <Container fluid>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-center">
               <Col xs lg='6'>
                 <p>Actualmente disponemos de dos centros en la provincia de Valencia: en Valencia capital, ubicado en el barrio de Benimaclet y en Oliva, en la comarca de la Safor. La odontología contemporánea nos exige clínicas accesibles, multidisciplinares, con profesionales altamente cualificados y en constante actualización con las nuevas tecnologías y técnicas de tratamiento.</p>
               </Col>
@@ -55,11 +55,10 @@ export const Home = () => {
         </div>
         <div className="lightSection">
           <Container fluid>
-            <Row className="justify-content-md-center">
-              <Col xs lg='6'>
-                <p>Actualmente disponemos de dos centros en la provincia de Valencia: en Valencia capital, ubicado en el barrio de Benimaclet y en Oliva, en la comarca de la Safor. La odontología contemporánea nos exige clínicas accesibles, multidisciplinares, con profesionales altamente cualificados y en constante actualización con las nuevas tecnologías y técnicas de tratamiento.</p>
-              </Col>
-              <Col xs lg='6'></Col>
+            <Row className="justify-content-center">
+              {Array.from({ length: 3 }).map((_, idx) => (
+                <Col key={idx}><InfoCard name={tratementsData[idx].name} description={tratementsData[idx].description} image={tratementsData[idx].image} /></Col>
+              ))}
             </Row>
           </Container>
         </div>

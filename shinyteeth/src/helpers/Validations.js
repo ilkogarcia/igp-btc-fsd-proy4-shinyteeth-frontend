@@ -1,5 +1,5 @@
-// Email inputs validations function
-export const validateForm = (name, data, required) => {
+// All validations function
+const ValidateForm = (name, data, required) => {
   switch (name) {
     case 'email':
       if (data === '' && required === true) {
@@ -21,3 +21,5 @@ export const validateForm = (name, data, required) => {
       console.log('Fielt not recognized')
   }
 }
+
+export default ValidateForm

@@ -12,7 +12,7 @@ import { Button } from 'react-bootstrap'
 import './Login.css'
 
 // Import helpers
-import { validateForm } from '../../helpers/Validations'
+import ValidateForm from '../../helpers/Validations'
 
 export const Login = () => {
   // Estado para guardar el valor de los campos del formulario
@@ -69,7 +69,7 @@ export const Login = () => {
   // Función para validar las entradas de datos del formulario
   const checkError = ({ target }) => {
     const { name, value, required } = target
-    const result = validateForm(name, value, required)
+    const result = ValidateForm(name, value, required)
 
     setformDataOk((prevState) => ({
       ...prevState,
