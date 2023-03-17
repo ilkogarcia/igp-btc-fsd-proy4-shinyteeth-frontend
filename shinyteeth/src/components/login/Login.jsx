@@ -9,12 +9,15 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 
 // Import components, layouts, stylesheet and helpers from my App
 import ValidateForm from '../../helpers/Validations'
-import { logMeIn } from '../../services/DummyJSON.service'
+import { logMeIn } from '../../services/shinyteeth.service'
 import './Login.css'
 
 // Import Redux methods
 import { useDispatch } from 'react-redux'
 import { login } from '../../redux/slices/userSlice'
+
+// Import React JWT library
+import { decodeToken } from 'react-jwt'
 
 export const Login = () => {
   const dispatch = useDispatch()
@@ -73,8 +76,7 @@ export const Login = () => {
 
   // Función para validar las entradas de datos del formulario
   const checkError = ({ target }) => {
-    const { name, value, required } = target
-    const result = ValidateForm(name, value, required)
+    const result = ValidateForm(target)
 
     setformDataOk((prevState) => ({
       ...prevState,
@@ -97,10 +99,8 @@ export const Login = () => {
 
   // Función para gestionar el clic en el botón del formulario
   const handleFormSubmit = () => {
-    // Esto solo para probar de momento con la API de DummyJSON
-
     const userData = {
-      username: formData.email,
+      email: formData.email,
       password: formData.password
     }
 
@@ -108,18 +108,14 @@ export const Login = () => {
       .then(
         output => {
           const { data } = output
+          const decodedToken = decodeToken(data.token)
           const dataBackend = {
-            id: data.id,
-            username: data.username,
-            email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            gender: data.gender,
-            image: data.image,
+            userId: decodedToken.userId,
+            roleId: decodedToken.roleId,
+            patientId: decodedToken.patientId,
+            professionalId: decodedToken.professionalId,
             token: data.token
           }
-          console.log(dataBackend)
-          // Este es el momento en el que guardo en REDUX
           dispatch(login({ credentials: dataBackend }))
           navigate('/')
         }
@@ -142,7 +138,7 @@ export const Login = () => {
                                 placeholder="name@example.com"
                                 defaultValue={ email }
                                 onChange={ (event) => handleImputChange(event) }
-                                // onBlur={ (event) => checkError(event) }
+                                onBlur={ (event) => checkError(event) }
                             />
                             <Form.Text className='errorMessage'>{formDataError.emailError}</Form.Text>
                         </Form.Group>
@@ -156,7 +152,7 @@ export const Login = () => {
                                 placeholder="*************"
                                 defaultValue={ password }
                                 onChange={ (event) => handleImputChange(event) }
-                                // onBlur={ (event) => checkError(event) }
+                                onBlur={ (event) => checkError(event) }
                             />
                             <Form.Text className='errorMessage'>{formDataError.passwordError}</Form.Text>
                         </Form.Group>
@@ -164,7 +160,7 @@ export const Login = () => {
                         <Button
                             className='button is-large'
                             onClick={() => handleFormSubmit()}
-                            disabled={loginButtonState}>
+                            disabled={!loginButtonState}>
                             Sign In
                         </Button>
 

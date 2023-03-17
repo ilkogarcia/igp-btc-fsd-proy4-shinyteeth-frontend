@@ -71,10 +71,10 @@ export const Menu = () => {
 
         <Navbar.Collapse className="justify-content-end">
           <Nav variant="pills" activeKey="1" onSelect={(selectedKey) => navigate(selectedKey)}>
-            { logedUserData?.credentials?.token
+            { logedUserData?.credentials?.userId
               ? (
                 <>
-                  <NavDropdown title={logedUserData?.credentials?.firstName} id="nav-dropdown">
+                  <NavDropdown title={logedUserData?.credentials?.userId} id="nav-dropdown">
                     <NavDropdown.Item eventKey="/profile">Profile</NavDropdown.Item>
                     <NavDropdown.Item eventKey="/dates">Another action</NavDropdown.Item>
                     <NavDropdown.Divider />

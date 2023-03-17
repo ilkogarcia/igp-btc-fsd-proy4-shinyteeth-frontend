@@ -5,7 +5,6 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     credentials: {
-      token: ''
     }
   },
   reducers: {
@@ -20,10 +19,16 @@ const userSlice = createSlice({
         ...state,
         ...action.payload
       }
+    },
+    signup: (state, action) => {
+      return {
+        ...state,
+        ...action.payload
+      }
     }
   }
 })
 
 export const userData = (state) => state.user
-export const { login, logout } = userSlice.actions
+export const { login, logout, signup } = userSlice.actions
 export default userSlice.reducer
