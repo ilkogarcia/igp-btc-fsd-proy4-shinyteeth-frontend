@@ -1,29 +1,29 @@
-// Imports from React library
+// Import react library
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-// Imports from React Router library
+// Import redux and app store
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
+
+// Import react router library
 import { BrowserRouter as Router } from 'react-router-dom'
 
-// Imports App layouts and components
+// Import App, components and stylesheets
 import { App } from './App'
-
-// This is the magic helper thats scroll to top
+// import { AxiosInterceptor } from './interceptors/Interceptors'
 import ScrollToTop from './helpers/ScrollToTop'
-
-// Import Axios interceptors
-import { AxiosInterceptor } from './interceptors/Interceptors'
-
-// Import App stylesheet
 import './index.css'
 
-AxiosInterceptor()
+// AxiosInterceptor()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Router>
-      <ScrollToTop />
-      <App />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <ScrollToTop />
+        <App />
+      </Router>
+    </Provider>
   </React.StrictMode>
 )

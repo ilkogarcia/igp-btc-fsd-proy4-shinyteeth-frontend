@@ -2,19 +2,21 @@
 import React, { useState, useEffect } from 'react'
 
 // Imports from React-Bootstrap framework
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Form from 'react-bootstrap/Form'
-import { Button } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 
-// Import stylesheet
+// Import components, layouts, stylesheet and helpers from my App
+import ValidateForm from '../../helpers/Validations'
+import { logMeIn } from '../../services/DummyJSON.service'
 import './Login.css'
 
-// Import helpers
-import ValidateForm from '../../helpers/Validations'
+// Import Redux methods
+import { useDispatch } from 'react-redux'
+import { login } from '../../redux/slices/userSlice'
 
 export const Login = () => {
+  // Init Redux in writing mode
+  const dispatch = useDispatch()
+
   // Estado para guardar el valor de los campos del formulario
   const [formData, setformData] = useState({
     email: '',
@@ -92,7 +94,33 @@ export const Login = () => {
 
   // Función para gestionar el clic en el botón del formulario
   const handleFormSubmit = () => {
+    // Esto solo para probar de momento con la API de DummyJSON
     console.log(formData)
+    const userData = {
+      username: formData.email,
+      password: formData.password
+    }
+
+    logMeIn(userData)
+      .then(
+        output => {
+          const { data } = output
+          const dataBackend = {
+            id: data.id,
+            username: data.username,
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            gender: data.gender,
+            image: data.image,
+            token: data.token
+          }
+          console.log(dataBackend)
+          // Este es el momento en el que guardo en REDUX
+          dispatch(login({ credentials: dataBackend }))
+        }
+      )
+      .catch(error => console.log(error))
   }
 
   return (
@@ -110,7 +138,7 @@ export const Login = () => {
                                 placeholder="name@example.com"
                                 defaultValue={ email }
                                 onChange={ (event) => handleImputChange(event) }
-                                onBlur={ (event) => checkError(event) }
+                                // onBlur={ (event) => checkError(event) }
                             />
                             <Form.Text className='errorMessage'>{formDataError.emailError}</Form.Text>
                         </Form.Group>
@@ -124,15 +152,15 @@ export const Login = () => {
                                 placeholder="*************"
                                 defaultValue={ password }
                                 onChange={ (event) => handleImputChange(event) }
-                                onBlur={ (event) => checkError(event) }
+                                // onBlur={ (event) => checkError(event) }
                             />
                             <Form.Text className='errorMessage'>{formDataError.passwordError}</Form.Text>
                         </Form.Group>
 
                         <Button
                             className='button is-large'
-                            onClick={handleFormSubmit}
-                            disabled={!loginButtonState}>
+                            onClick={() => handleFormSubmit()}
+                            disabled={loginButtonState}>
                             Sign In
                         </Button>
 

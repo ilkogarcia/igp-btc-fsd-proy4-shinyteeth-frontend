@@ -1,11 +1,15 @@
-// Import from React
-import React, { useState } from 'react'
+// Import React library
+import React, { useState, useEffect } from 'react'
 
 // Import React-Boostrap components
-import { Container, Navbar, Nav } from 'react-bootstrap'
+import { Container, Navbar, Nav, Dropdown, NavItem, NavLink } from 'react-bootstrap'
 
 // Import React Router components
 import { Link, useNavigate } from 'react-router-dom'
+
+// Import from Redux
+import { useSelector } from 'react-redux'
+import { userData } from '../../redux/slices/userSlice'
 
 // Import stylesheet
 import './Menu.css'
@@ -15,6 +19,9 @@ import { Panel } from '../../sections/panel/Panel'
 
 // Navbar component
 export const Menu = () => {
+  // Get user data from Redux store
+  const logedUserData = useSelector(userData)
+
   const navigate = useNavigate()
 
   const [show, setShow] = useState(false)
@@ -27,6 +34,10 @@ export const Menu = () => {
     setOption(option)
     handleShow()
   }
+
+  useEffect(() => {
+    console.log(logedUserData)
+  })
 
   return (
     <Navbar bg="light" variant="light" sticky="top">
@@ -52,12 +63,22 @@ export const Menu = () => {
 
         <Navbar.Collapse className="justify-content-end">
           <Nav>
-            <Nav.Link className='menuText' as={Link} onClick={() => handleClick('Signin')}>
-              Signin
-            </Nav.Link>
-            <Nav.Link className='menuText' as={Link} onClick={() => handleClick('Signup')}>
-              Signup
-            </Nav.Link>
+            { logedUserData?.credentials?.token
+              ? (
+                <>
+                  <Dropdown as={NavItem}>
+                    <Dropdown.Toggle as={NavLink}>{logedUserData?.credentials?.firstName}</Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item>Hello there!</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </>)
+              : (
+                <>
+                  <Nav.Link className='menuText' as={Link} onClick={() => handleClick('Signin')}>Signin</Nav.Link>
+                  <Nav.Link className='menuText' as={Link} onClick={() => handleClick('Signup')}>Signup</Nav.Link>
+                </>)
+            }
           </Nav>
         </Navbar.Collapse>
 
