@@ -6,7 +6,8 @@ export const getValidationError = (errorCode) => {
     ERR_UNKNOWN: 'Error desconocido',
     ERR_400: 'Error 400',
     ERR_401: 'Error 401',
-    ERR_403: 'Error 403'
+    ERR_403: 'Error 403',
+    ERR_BAD_REQUEST: 'Request failed with status code 400'
   }
 
   return codeMatcher[errorCode]

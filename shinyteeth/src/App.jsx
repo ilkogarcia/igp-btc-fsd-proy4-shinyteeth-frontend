@@ -1,8 +1,8 @@
 // Immports from Reacts
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 // Immports from Reacts Router
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 
 // Import Web Font Loader
 import WebFont from 'webfontloader'
@@ -23,19 +23,10 @@ import { TermsConditions } from './pages/termscontitions/TermsConditions'
 import { Menu } from './components/menu/Menu'
 import { Footer } from './sections/footer/Footer'
 
-// Import app services
-import { testingService } from './services/testing.service'
-
 // Import stylesheets
 import './App.css'
 
 export const App = () => {
-  const [morty, setMorty] = useState({})
-  const fetchMorty = async () => {
-    const { data } = await testingService()
-    setMorty(data)
-  }
-
   // Hook that run just once
   useEffect(() => {
     // Load Google fonts used on App
@@ -44,8 +35,6 @@ export const App = () => {
         families: ['Montserrat', 'Karla']
       }
     })
-    // Call API and get data
-    fetchMorty()
   }, [])
 
   return (
@@ -53,12 +42,12 @@ export const App = () => {
       <Menu />
       <Routes>
         <Route path='/' element={<Home />} />
-          <Route index path='/services' element={<Services /> } />
-          <Route path='/aboutus' element={<Aboutus />} />
-          <Route path='/contactus' element={<Contactus />} />
-          <Route path='/privacy' element={<PrivacyPolicy />} />
-          <Route path='/terms' element={<TermsConditions />} />
-          <Route path="*" element={<Home />} />
+        <Route path='/services' element={<Services /> } />
+        <Route path='/aboutus' element={<Aboutus />} />
+        <Route path='/contactus' element={<Contactus />} />
+        <Route path='/privacy' element={<PrivacyPolicy />} />
+        <Route path='/terms' element={<TermsConditions />} />
+        <Route path='*' element={<Navigate to='/' />} />
       </Routes>
       <SnackbarProvider>
         <SnackbarUtilitiesConfigurator />

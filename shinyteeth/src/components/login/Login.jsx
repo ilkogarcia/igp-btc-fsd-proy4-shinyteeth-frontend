@@ -1,6 +1,9 @@
 // Imports from React library
 import React, { useState, useEffect } from 'react'
 
+// Immports from Reacts Router
+import { useNavigate } from 'react-router-dom'
+
 // Imports from React-Bootstrap framework
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 
@@ -14,8 +17,8 @@ import { useDispatch } from 'react-redux'
 import { login } from '../../redux/slices/userSlice'
 
 export const Login = () => {
-  // Init Redux in writing mode
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   // Estado para guardar el valor de los campos del formulario
   const [formData, setformData] = useState({
@@ -95,7 +98,7 @@ export const Login = () => {
   // Función para gestionar el clic en el botón del formulario
   const handleFormSubmit = () => {
     // Esto solo para probar de momento con la API de DummyJSON
-    console.log(formData)
+
     const userData = {
       username: formData.email,
       password: formData.password
@@ -118,6 +121,7 @@ export const Login = () => {
           console.log(dataBackend)
           // Este es el momento en el que guardo en REDUX
           dispatch(login({ credentials: dataBackend }))
+          navigate('/')
         }
       )
       .catch(error => console.log(error))

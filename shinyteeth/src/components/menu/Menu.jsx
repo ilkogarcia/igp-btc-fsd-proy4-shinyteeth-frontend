@@ -1,15 +1,15 @@
 // Import React library
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 // Import React-Boostrap components
-import { Container, Navbar, Nav, Dropdown, NavItem, NavLink } from 'react-bootstrap'
+import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap'
 
 // Import React Router components
 import { Link, useNavigate } from 'react-router-dom'
 
 // Import from Redux
-import { useSelector } from 'react-redux'
-import { userData } from '../../redux/slices/userSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { userData, logout } from '../../redux/slices/userSlice'
 
 // Import stylesheet
 import './Menu.css'
@@ -19,10 +19,10 @@ import { Panel } from '../../sections/panel/Panel'
 
 // Navbar component
 export const Menu = () => {
-  // Get user data from Redux store
-  const logedUserData = useSelector(userData)
-
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const logedUserData = useSelector(userData)
 
   const [show, setShow] = useState(false)
   const [option, setOption] = useState('Signin')
@@ -31,13 +31,21 @@ export const Menu = () => {
   const handleShow = () => setShow(true)
 
   const handleClick = (option) => {
-    setOption(option)
-    handleShow()
+    switch (option) {
+      case 'Signin':
+      case 'Signup':
+        setOption(option)
+        handleShow()
+        break
+      case 'Signout':
+        dispatch(logout({ credentials: {} }))
+        navigate('/')
+        break
+      default:
+        console.log('Estamos en el case default')
+        break
+    }
   }
-
-  useEffect(() => {
-    console.log(logedUserData)
-  })
 
   return (
     <Navbar bg="light" variant="light" sticky="top">
@@ -47,7 +55,7 @@ export const Menu = () => {
           Shiny Teeth
         </Navbar.Brand>
 
-        <Nav className="me-auto" activeKey="/" onSelect={(selectedKey) => navigate(selectedKey)}>
+        <Nav variant="pills" activeKey="/" onSelect={(selectedKey) => navigate(selectedKey)}>
           <Nav.Item>
             <Nav.Link className='menuText' eventKey="/services">Services</Nav.Link>
           </Nav.Item>
@@ -62,21 +70,26 @@ export const Menu = () => {
         <Navbar.Toggle />
 
         <Navbar.Collapse className="justify-content-end">
-          <Nav>
+          <Nav variant="pills" activeKey="1" onSelect={(selectedKey) => navigate(selectedKey)}>
             { logedUserData?.credentials?.token
               ? (
                 <>
-                  <Dropdown as={NavItem}>
-                    <Dropdown.Toggle as={NavLink}>{logedUserData?.credentials?.firstName}</Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item>Hello there!</Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  <NavDropdown title={logedUserData?.credentials?.firstName} id="nav-dropdown">
+                    <NavDropdown.Item eventKey="/profile">Profile</NavDropdown.Item>
+                    <NavDropdown.Item eventKey="/dates">Another action</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={() => handleClick('Signout')}>Logout</NavDropdown.Item>
+                  </NavDropdown>
                 </>)
               : (
                 <>
-                  <Nav.Link className='menuText' as={Link} onClick={() => handleClick('Signin')}>Signin</Nav.Link>
-                  <Nav.Link className='menuText' as={Link} onClick={() => handleClick('Signup')}>Signup</Nav.Link>
+                  <Nav.Item>
+                    <Nav.Link className='menuText' onClick={() => handleClick('Signin')}>Signin</Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link className='menuText' onClick={() => handleClick('Signup')}>Signup</Nav.Link>
+                  </Nav.Item>
+
                 </>)
             }
           </Nav>
