@@ -18,6 +18,8 @@ import { Aboutus } from './pages/aboutus/Aboutus'
 import { Contactus } from './pages/contactus/Contactus'
 import { PrivacyPolicy } from './pages/privacypolicy/PrivacyPolicy'
 import { TermsConditions } from './pages/termscontitions/TermsConditions'
+import { Profile } from './pages/profile/Profile'
+import { Appointments } from './pages/appointments/Appointments'
 
 // Import app sections and components
 import { Menu } from './components/menu/Menu'
@@ -47,6 +49,8 @@ export const App = () => {
         <Route path='/contactus' element={<Contactus />} />
         <Route path='/privacy' element={<PrivacyPolicy />} />
         <Route path='/terms' element={<TermsConditions />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/appointments' element={<Appointments />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
       <SnackbarProvider>

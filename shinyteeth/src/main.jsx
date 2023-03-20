@@ -15,7 +15,7 @@ import { AxiosInterceptor } from './interceptors/Interceptors'
 import ScrollToTop from './helpers/ScrollToTop'
 import './index.css'
 
-AxiosInterceptor()
+// AxiosInterceptor()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

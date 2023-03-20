@@ -16,6 +16,9 @@ import './Register.css'
 import { useDispatch } from 'react-redux'
 import { signup } from '../../redux/slices/userSlice'
 
+// Import React JWT library
+import { decodeToken } from 'react-jwt'
+
 export const Register = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -106,16 +109,15 @@ export const Register = () => {
 
     signMeUp(userData)
       .then(output => {
-        console.log(output)
         const { data } = output
+        const decodedToken = decodeToken(data.token)
         const dataBackend = {
-          userId: data.user
+          userId: decodedToken.userId,
+          roleId: decodedToken.roleId,
+          token: data.token
         }
-        console.log(dataBackend)
         dispatch(signup({ credentials: dataBackend }))
-        console.log('Ahora deberíamos navegar')
         navigate('/')
-        console.log('ya hemos navegado');
       })
       .catch(error => console.log(error))
   }

@@ -1,0 +1,10 @@
+/* Styles for Home page layout */
+.mainProfileContainer {
+    margin: 0;
+    padding: 30px;
+    min-width: 100vw;
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}

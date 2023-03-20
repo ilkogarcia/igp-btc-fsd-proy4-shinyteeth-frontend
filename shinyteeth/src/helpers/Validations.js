@@ -1,6 +1,16 @@
 // All validations function
 const ValidateForm = (target) => {
   switch (target.name) {
+    case 'firstname':
+    case 'middlename':
+    case 'lastname':
+      if (target.required === true && target.value === '') {
+        return { message: 'This field is required!', valid: false }
+      } else if (!/^$|^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(target.value)) {
+        return { message: 'Use only characters', valid: false }
+      }
+      return { message: '', valid: true }
+
     case 'email':
       if (target.value === '' && target.required === true) {
         return { message: 'Email is required!', valid: false }
@@ -18,6 +28,14 @@ const ValidateForm = (target) => {
     case 'checkbox':
       if (target.checked === false && target.required === true) {
         return { message: 'Users must first agree our terms and conditions', valid: false }
+      }
+      return { message: '', valid: true }
+
+    case 'mobilephone':
+      if (target.value === '' && target.required === true) {
+        return { message: 'Mobile phone number is required!', valid: false }
+      } else if (!/^(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}$/.test(target.value)) {
+        return { message: 'Mobile phone number must use only numbers', valid: false }
       }
       return { message: '', valid: true }
 

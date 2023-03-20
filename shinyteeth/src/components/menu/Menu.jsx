@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 // Import React-Boostrap components
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { PersonCircle, BoxArrowRight } from 'react-bootstrap-icons'
 
 // Import React Router components
 import { Link, useNavigate } from 'react-router-dom'
@@ -47,6 +48,30 @@ export const Menu = () => {
     }
   }
 
+  const renderUserMenu = (role) => {
+    switch (role) {
+      case 2:
+      case 3:
+        return (<>
+          <NavDropdown title={<PersonCircle size={25} />} id="nav-dropdown">
+            <NavDropdown.Item eventKey="/profile">My Profile</NavDropdown.Item>
+            <NavDropdown.Item eventKey="/appointments">Appointments</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item onClick={() => handleClick('Signout')}>{<BoxArrowRight size={20} />} Logout</NavDropdown.Item>
+          </NavDropdown>
+          </>)
+      case 4:
+        return (<>
+          <NavDropdown title={<PersonCircle size={25} />} id="nav-dropdown">
+            <NavDropdown.Item eventKey="/profile">Users</NavDropdown.Item>
+            <NavDropdown.Item eventKey="/dates">Professionals</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item onClick={() => handleClick('Signout')}>{<BoxArrowRight size={20} />} Logout</NavDropdown.Item>
+          </NavDropdown>
+          </>)
+    }
+  }
+
   return (
     <Navbar bg="light" variant="light" sticky="top">
       <Container>
@@ -71,27 +96,16 @@ export const Menu = () => {
 
         <Navbar.Collapse className="justify-content-end">
           <Nav variant="pills" activeKey="1" onSelect={(selectedKey) => navigate(selectedKey)}>
-            { logedUserData?.credentials?.userId
+            {(logedUserData?.credentials?.token)
               ? (
-                <>
-                  <NavDropdown title={logedUserData?.credentials?.userId} id="nav-dropdown">
-                    <NavDropdown.Item eventKey="/profile">Profile</NavDropdown.Item>
-                    <NavDropdown.Item eventKey="/dates">Another action</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={() => handleClick('Signout')}>Logout</NavDropdown.Item>
-                  </NavDropdown>
-                </>)
+                  renderUserMenu(logedUserData.credentials.roleId)
+                )
               : (
-                <>
-                  <Nav.Item>
-                    <Nav.Link className='menuText' onClick={() => handleClick('Signin')}>Signin</Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <Nav.Link className='menuText' onClick={() => handleClick('Signup')}>Signup</Nav.Link>
-                  </Nav.Item>
-
-                </>)
-            }
+                  <>
+                    <Nav.Item><Nav.Link className='menuText' onClick={() => handleClick('Signin')}>Signin</Nav.Link></Nav.Item>
+                    <Nav.Item><Nav.Link className='menuText' onClick={() => handleClick('Signup')}>Signup</Nav.Link></Nav.Item>
+                  </>
+                )}
           </Nav>
         </Navbar.Collapse>
 

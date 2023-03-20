@@ -1,24 +1,25 @@
 import axios from 'axios'
-import { getInLocalStorage, getValidationError, LocalStorageKeys, saveInLocalStorage } from '../utilities'
+import { getValidationError } from '../utilities'
 import { SnackbarUtilities } from '../utilities/SnackbarManager'
 
+// Import from Redux
+import { useSelector } from 'react-redux'
+import { userData } from '../redux/slices/userSlice'
+
 export const AxiosInterceptor = () => {
-  saveInLocalStorage(LocalStorageKeys.TOKEN, '123123123123')
+  const logedUserData = useSelector(userData)
 
-  const updateHeader = (request) => {
-    const token = getInLocalStorage(LocalStorageKeys.TOKEN)
-    const newHeaders = {
-      Authorization: token,
-      'Content-Type': 'application/json'
+  axios.interceptors.request.use(
+    (request) => {
+      if (logedUserData?.credentials?.token) {
+        request.headers['Authorization'] = `Bearer ${logedUserData?.credentials?.token}`
+      }
+      return request
+    },
+    (error) => {
+      return Promise.reject(error)
     }
-    request.headers = newHeaders
-    return request
-  }
-
-  axios.interceptors.request.use((request) => {
-    if (request.url?.includes('assets')) return request
-    return updateHeader(request)
-  })
+  )
 
   axios.interceptors.response.use(
     (response) => {

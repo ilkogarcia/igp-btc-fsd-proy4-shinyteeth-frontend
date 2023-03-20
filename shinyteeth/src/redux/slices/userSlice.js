@@ -5,6 +5,8 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     credentials: {
+    },
+    profile: {
     }
   },
   reducers: {
@@ -25,10 +27,16 @@ const userSlice = createSlice({
         ...state,
         ...action.payload
       }
+    },
+    update: (state, action) => {
+      return {
+        ...state,
+        ...action.payload
+      }
     }
   }
 })
 
 export const userData = (state) => state.user
-export const { login, logout, signup } = userSlice.actions
+export const { login, logout, signup, update } = userSlice.actions
 export default userSlice.reducer
