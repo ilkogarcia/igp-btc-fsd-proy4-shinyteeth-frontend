@@ -63,8 +63,9 @@ export const Menu = () => {
       case 4:
         return (<>
           <NavDropdown title={<PersonCircle size={25} />} id="nav-dropdown">
-            <NavDropdown.Item eventKey="/profile">Users</NavDropdown.Item>
-            <NavDropdown.Item eventKey="/dates">Professionals</NavDropdown.Item>
+            <NavDropdown.Item eventKey="/users">Users</NavDropdown.Item>
+            <NavDropdown.Item eventKey="/patients">Patients</NavDropdown.Item>
+            <NavDropdown.Item eventKey="/professionals">Professionals</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={() => handleClick('Signout')}>{<BoxArrowRight size={20} />} Logout</NavDropdown.Item>
           </NavDropdown>

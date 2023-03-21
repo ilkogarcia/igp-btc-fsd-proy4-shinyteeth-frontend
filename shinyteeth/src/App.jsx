@@ -20,6 +20,7 @@ import { PrivacyPolicy } from './pages/privacypolicy/PrivacyPolicy'
 import { TermsConditions } from './pages/termscontitions/TermsConditions'
 import { Profile } from './pages/profile/Profile'
 import { Appointments } from './pages/appointments/Appointments'
+import { Users } from './pages/users/Users'
 
 // Import app sections and components
 import { Menu } from './components/menu/Menu'
@@ -51,6 +52,7 @@ export const App = () => {
         <Route path='/terms' element={<TermsConditions />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/appointments' element={<Appointments />} />
+        <Route path='/users' element={<Users />} />
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
       <SnackbarProvider>

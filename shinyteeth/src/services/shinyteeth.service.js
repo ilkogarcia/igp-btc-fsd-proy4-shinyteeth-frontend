@@ -27,3 +27,21 @@ export const updateUserProfile = async (token, user, body) => {
   }
   return await axios.put(`${root}/api/users/${user}`, body, config)
 }
+
+export const getAllUsers = async (token) => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }
+  return await axios.get(`${root}/api/users/`, config)
+}
+
+export const deleteUser = async (token, user) => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }
+  return await axios.delete(`${root}/api/users/${user}`, config)
+}
