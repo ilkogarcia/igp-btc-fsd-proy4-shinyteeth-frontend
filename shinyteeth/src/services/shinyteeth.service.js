@@ -19,7 +19,16 @@ export const getUserProfile = async (token, user) => {
   return await axios.get(`${root}/api/users/${user}`, config)
 }
 
-export const updateUserProfile = async (token, user, body) => {
+export const updateProfile = async (token, body) => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }
+  return await axios.put(`${root}/api/updateprofile`, body, config)
+}
+
+export const updateUser = async (token, user, body) => {
   const config = {
     headers: {
       Authorization: 'Bearer ' + token

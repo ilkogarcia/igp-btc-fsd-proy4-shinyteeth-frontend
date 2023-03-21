@@ -16,7 +16,7 @@ import { Modal, Container, Row, Col, Form, Button } from 'react-bootstrap'
 
 // Import components, layouts, stylesheet and helpers from my App
 import ValidateForm from '../../helpers/Validations'
-import { updateUserProfile } from '../../services/shinyteeth.service'
+import { updateUser } from '../../services/shinyteeth.service'
 
 import './UserView.css'
 
@@ -25,17 +25,28 @@ export const UserView = props => {
   const navigate = useNavigate()
   const logedUserData = useSelector(userData)
 
+  // Estado para guardar los valores iniciales en el momento de la edicion
+  const [currentData, updateCurrentData] = useState({
+    id: '',
+    firstname: '',
+    middlename: '',
+    lastname: '',
+    mobilephone: '',
+    email: ''
+  })
   // Estado para guardar el valor de los campos del formulario
   const [formData, setformData] = useState({
-    firstname: userInfo.first_name,
-    middlename: userInfo.middl_ename,
-    lastname: userInfo.last_name,
-    mobilephone: userInfo.mobile_phone,
-    email: userInfo.email
+    id: '',
+    firstname: '',
+    middlename: '',
+    lastname: '',
+    mobilephone: '',
+    email: ''
   })
 
   // Estado para guardar si hay errores de los datos introducidos en el formulario
   const [formDataError, setformDataError] = useState({
+    id: '',
     firstnameError: '',
     middlenameError: '',
     lastnameError: '',
@@ -45,6 +56,7 @@ export const UserView = props => {
 
   // Estado para guardar si los datos introducidos en el formulario son validos
   const [formDataOk, setformDataOk] = useState({
+    id: '',
     firstnameOK: '',
     middlenameOk: '',
     lastnameOk: '',
@@ -65,15 +77,15 @@ export const UserView = props => {
       navigate('/')
     } else {
       const initUserInfo = {
-        firstname: userInfo.first_name,
-        middlename: userInfo.middl_ename,
-        lastname: userInfo.last_name,
-        mobilephone: userInfo.mobile_phone,
+        id: userInfo.id,
+        firstname: userInfo.firstname,
+        middlename: userInfo.middlename,
+        lastname: userInfo.lastname,
+        mobilephone: userInfo.mobilephone,
         email: userInfo.email
       }
       setformData(initUserInfo)
     }
-    console.log(userInfo)
   }, [])
 
   // Hook que se ejecuta cada que cambia el estado del componente
@@ -129,6 +141,7 @@ export const UserView = props => {
 
   // Funciones para gestionar los botones del formulario
   const handleEdit = () => {
+    updateCurrentData(formData)
     setFormEditMode(true)
   }
 
@@ -144,9 +157,10 @@ export const UserView = props => {
       email: formData.email
     }
 
-    updateUserProfile(currentToken, userInfo.id, dataBackend)
+    updateUser(currentToken, userInfo.id, dataBackend)
       .then(
         output => {
+          updateCurrentData(formData)
           setFormEditMode(false)
         }
       )
@@ -155,7 +169,7 @@ export const UserView = props => {
 
   // Función que se ejecuta cuando el usuario hace clic en el botón de cancelar del formulario
   const handleCancel = () => {
-    setformData(userInfo)
+    setformData(currentData)
     setformDataError('')
     setformDataOk('')
     setFormEditMode(false)

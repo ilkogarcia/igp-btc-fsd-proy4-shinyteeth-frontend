@@ -74,27 +74,25 @@ export const Menu = () => {
   }
 
   return (
-    <Navbar bg="light" variant="light" sticky="top">
+    <Navbar bg="light" variant="light" expand="lg" sticky="top">
       <Container>
-
         <Navbar.Brand className='brandText' as={Link} to="/">
           Shiny Teeth
         </Navbar.Brand>
-
-        <Nav variant="pills" activeKey="/" onSelect={(selectedKey) => navigate(selectedKey)}>
-          <Nav.Item>
-            <Nav.Link className='menuText' eventKey="/services">Services</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link className='menuText' eventKey="/aboutus">Who we are</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link className='menuText' eventKey="/contactus">Contact us</Nav.Link>
-          </Nav.Item>
-        </Nav>
-
         <Navbar.Toggle />
-
+        <Navbar.Collapse className="justify-content-start">
+          <Nav variant="pills" activeKey="/" onSelect={(selectedKey) => navigate(selectedKey)}>
+            <Nav.Item>
+              <Nav.Link className='menuText' eventKey="/services">Services</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link className='menuText' eventKey="/aboutus">Who we are</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link className='menuText' eventKey="/contactus">Contact us</Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
           <Nav variant="pills" activeKey="1" onSelect={(selectedKey) => navigate(selectedKey)}>
             {(logedUserData?.credentials?.token)
@@ -109,11 +107,8 @@ export const Menu = () => {
                 )}
           </Nav>
         </Navbar.Collapse>
-
       </Container>
-
       <Panel name={option} placement={'end'} scroll={true} backdrop={true} show={show} onClose={handleClose} />
-
     </Navbar>
   )
 }

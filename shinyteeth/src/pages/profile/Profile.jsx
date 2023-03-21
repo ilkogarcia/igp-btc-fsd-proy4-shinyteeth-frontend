@@ -13,7 +13,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 
 // Import components, layouts, stylesheet and helpers from my App
 import ValidateForm from '../../helpers/Validations'
-import { getUserProfile, updateUserProfile } from '../../services/shinyteeth.service'
+import { getUserProfile, updateProfile } from '../../services/shinyteeth.service'
 import './Profile.css'
 
 export const Profile = () => {
@@ -21,6 +21,15 @@ export const Profile = () => {
   const navigate = useNavigate()
 
   const logedUserData = useSelector(userData)
+
+  // Estado para guardar el valor incial en el momento de la edición del formulario
+  const [currentData, updateCurrentData] = useState({
+    firstname: '',
+    middlename: '',
+    lastname: '',
+    mobilephone: '',
+    email: ''
+  })
 
   // Estado para guardar el valor de los campos del formulario
   const [formData, setformData] = useState({
@@ -130,12 +139,12 @@ export const Profile = () => {
 
   // Funciones para gestionar los botones del formulario
   const handleEdit = () => {
+    updateCurrentData(formData)
     setFormEditMode(true)
   }
 
   const handleSave = () => {
     const currentToken = logedUserData?.credentials?.token
-    const currentUser = logedUserData?.credentials?.userId
 
     const dataBackend = {
       first_name: formData.firstname,
@@ -145,9 +154,10 @@ export const Profile = () => {
       email: formData.email
     }
 
-    updateUserProfile(currentToken, currentUser, dataBackend)
+    updateProfile(currentToken, dataBackend)
       .then(
         output => {
+          updateCurrentData(formData)
           setFormEditMode(false)
         }
       )
@@ -155,7 +165,7 @@ export const Profile = () => {
   }
 
   const handleCancel = () => {
-    setformData(logedUserData.profile)
+    setformData(currentData)
     setformDataError('')
     setformDataOk('')
     setFormEditMode(false)
@@ -181,7 +191,6 @@ export const Profile = () => {
                     required
                     type="text"
                     name="firstname"
-                    defaultValue={ firstname }
                     value={ firstname }
                     disabled={ !formEditMode }
                     onChange={ (event) => handleImputChange(event) }
@@ -196,7 +205,6 @@ export const Profile = () => {
                 <Form.Control
                     type="text"
                     name="middlename"
-                    defaultValue={ middlename }
                     value={ middlename }
                     disabled={ !formEditMode }
                     onChange={ (event) => handleImputChange(event) }
@@ -211,7 +219,6 @@ export const Profile = () => {
                 <Form.Control
                     type="text"
                     name="lastname"
-                    defaultValue={ lastname }
                     value={ lastname }
                     disabled={ !formEditMode }
                     onChange={ (event) => handleImputChange(event) }
@@ -229,7 +236,6 @@ export const Profile = () => {
                 <Form.Control
                     type="text"
                     name="mobilephone"
-                    defaultValue={ mobilephone }
                     value={ mobilephone }
                     disabled={ !formEditMode }
                     onChange={ (event) => handleImputChange(event) }
@@ -245,7 +251,6 @@ export const Profile = () => {
                     required
                     type="text"
                     name="email"
-                    defaultValue={ email }
                     value={ email }
                     disabled={ !formEditMode }
                     onChange={ (event) => handleImputChange(event) }
