@@ -32,8 +32,19 @@ export const Users = () => {
 
   // Callback function we send to modal popup
   const handleClose = () => {
-    forceUpdate()
+    const currentToken = logedUserData?.credentials?.token
     setShow(false)
+    getAllUsers(currentToken)
+      .then(
+        output => {
+          const { data } = output
+          setUsers(data.user_list)
+        }
+      )
+      .catch(
+        error => console.log(error)
+      )
+    forceUpdate()
   }
 
   // Hook to handle the list of selected users

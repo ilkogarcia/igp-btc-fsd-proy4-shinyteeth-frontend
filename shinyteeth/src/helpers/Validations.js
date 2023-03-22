@@ -35,7 +35,7 @@ const ValidateForm = (target) => {
       if (target.value === '' && target.required === true) {
         return { message: 'Mobile phone number is required!', valid: false }
       } else if (!/^(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}$/.test(target.value)) {
-        return { message: 'Mobile phone number must use only numbers', valid: false }
+        return { message: 'Only spain mobile phone numbers admited', valid: false }
       }
       return { message: '', valid: true }
 

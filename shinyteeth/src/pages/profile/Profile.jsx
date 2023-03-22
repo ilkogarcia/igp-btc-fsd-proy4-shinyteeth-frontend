@@ -179,7 +179,7 @@ export const Profile = () => {
 
         <Row>
           <Col>
-            <h3>My Profile</h3>
+            <h4>My Profile</h4>
           </Col>
         </Row>
 
