@@ -63,3 +63,30 @@ export const getMyAppointments = async (token) => {
   }
   return await axios.get(`${root}/api/patient/appointments`, config)
 }
+
+export const getTreatmentDetail = async (token, treatment) => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }
+  return await axios.get(`${root}/api/dentaltreatments/${treatment}`, config)
+}
+
+export const getProfessionalDetail = async (token, professional) => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }
+  return await axios.get(`${root}/api/professionals/${professional}`, config)
+}
+
+export const cancelAppointment = async (token, appointment) => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }
+  return await axios.delete(`${root}/api/patient/appointments/${appointment}`, config)
+}

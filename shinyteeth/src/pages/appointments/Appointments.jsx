@@ -11,8 +11,12 @@ import { userData } from '../../redux/slices/userSlice'
 // Imports from React-Bootstrap framework
 import { Container, Stack, Row, Col, Table, Form, Button } from 'react-bootstrap'
 
+// Imports from other third-party libraries
+import dayjs from 'dayjs'
+
 // Import components, layouts, stylesheet and helpers from my App
-import { getMyAppointments } from '../../services/shinyteeth.service'
+import { getMyAppointments, cancelAppointment } from '../../services/shinyteeth.service'
+import { AppointmentView } from '../../components/appointmentview/AppointmentView'
 import './Appointments.css'
 
 export const Appointments = () => {
@@ -20,13 +24,13 @@ export const Appointments = () => {
   const logedUserData = useSelector(userData)
 
   // Hook to handle appointment list table component rendering
-  const [appointments, setAppointments] = useState([])
+  const [appointments, updateAppointments] = useState([])
 
   // Hook to handle the appointments selected by users
   const [selectedAppointments, updateSelectedAppointments] = useState([])
 
   // Hook to handle user detail
-  const [appointmentDetail, updateAppointmentDetail] = useState({
+  const [appointmentDetails, updateAppointmentDetails] = useState({
     id: '',
     patientid: '',
     professionalid: '',
@@ -39,22 +43,7 @@ export const Appointments = () => {
   // Hook to handle modal view show and close event
   const [show, setShow] = useState(false)
   const handleShow = () => setShow(true)
-
-  // Callback function we send to modal popup
-  const handleClose = () => {
-    const currentToken = logedUserData?.credentials?.token
-    setShow(false)
-    getMyAppointments(currentToken)
-      .then(
-        output => {
-          const { data } = output
-          setAppointments(data.appointments)
-        }
-      )
-      .catch(
-        error => console.log(error)
-      )
-  }
+  const handleClose = () => setShow(false)
 
   useEffect(() => {
     const currentToken = logedUserData?.credentials?.token
@@ -66,8 +55,7 @@ export const Appointments = () => {
         .then(
           output => {
             const { data } = output
-            setAppointments(data.appointments)
-            console.log(appointments)
+            updateAppointments(data.appointments)
           }
         )
         .catch(
@@ -80,12 +68,34 @@ export const Appointments = () => {
     alert('Create a new user')
   }
 
-  const handleUpdate = (idx) => {
-    alert('Update user', idx)
+  const handleView = (idx) => {
+    const appointmentData = {
+      id: appointments[idx].id,
+      patientid: appointments[idx].patient_id,
+      professionalid: appointments[idx].professional_id,
+      treatmentid: appointments[idx].treatment_id,
+      appointmenton: appointments[idx].appointment_on,
+      startat: appointments[idx].start_at,
+      endat: appointments[idx].end_at
+    }
+    console.log(appointmentData)
+    updateAppointmentDetails(appointmentData)
+    console.log(appointmentDetails)
+    handleShow()
   }
 
   const handleDelete = (idx) => {
-    alert('Delete user', idx)
+    const currentToken = logedUserData?.credentials?.token
+    cancelAppointment(currentToken, appointments[idx].id)
+      .then(
+        output => {
+          // update users hook to force re-render functional component
+          const appointmentsCopy = [...appointments]
+          appointmentsCopy.splice(idx, 1)
+          updateAppointments(appointmentsCopy)
+        }
+      )
+      .catch(error => console.log(error))
   }
 
   const selectThisUser = ({ target }) => {
@@ -102,7 +112,7 @@ export const Appointments = () => {
   return (
     <Container fluid className="mainAppointmentContainer">
       {show &&
-        <AppointmentView show={show} onClose={handleClose} userInfo={appointmentDetail}/>
+        <AppointmentView show={show} onClose={handleClose} appointmentInfo={appointmentDetails}/>
       }
       <Stack gap={3}>
         <div>
@@ -147,7 +157,7 @@ export const Appointments = () => {
                       >
                       </Form.Check>
                     </td>
-                    <td>{appointment.appointment_on}</td>
+                    <td>{dayjs(appointment.appointment_on).format('DD/MM/YYYY')}</td>
                     <td>{appointment.start_at}</td>
                     <td>{appointment.end_at}</td>
                     <td>{appointment.treatment_id}</td>
@@ -155,9 +165,9 @@ export const Appointments = () => {
                     <td><Button
                           variant='info'
                           size="sm"
-                          onClick={() => handleUpdate(index)}
+                          onClick={() => handleView(index)}
                           disabled={ false }>
-                          Reschedule
+                          View
                       </Button>{' '}
                       <Button
                           variant='danger'
