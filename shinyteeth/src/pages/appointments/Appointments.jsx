@@ -15,7 +15,7 @@ import { Container, Stack, Row, Col, Table, Form, Button } from 'react-bootstrap
 import dayjs from 'dayjs'
 
 // Import components, layouts, stylesheet and helpers from my App
-import { getMyAppointments, cancelAppointment } from '../../services/shinyteeth.service'
+import { getMyAppointments, getDocAppointments, cancelAppointment } from '../../services/shinyteeth.service'
 import { AppointmentView } from '../../components/appointmentview/AppointmentView'
 import './Appointments.css'
 
@@ -46,33 +46,58 @@ export const Appointments = () => {
   const handleShow = () => setShow(true)
   const handleClose = () => setShow(false)
 
-  useEffect(() => {
-    const currentToken = logedUserData?.credentials?.token
+  const currentToken = logedUserData?.credentials?.token
+  const currentUserRole = logedUserData?.credentials?.roleId
 
+  useEffect(() => {
     if (!currentToken) {
       navigate('/')
     } else {
-      getMyAppointments(currentToken)
-        .then(
-          output => {
-            const { data } = output
-            // Filtear array to get appointments before current dates
-            const pastAppointments = data.appointments.filter((appointment) =>
-              dayjs(appointment.appointment_on) < dayjs(new Date())
-            )
-            console.log(pastAppointments)
-            updatePastAppointments(pastAppointments)
-            // Filtear array to get upcomming appointments from current dates
-            const appointments = data.appointments.filter((appointment) =>
-              dayjs(appointment.appointment_on) >= dayjs(new Date())
-            )
-            console.log(appointments)
-            updateAppointments(appointments)
-          }
-        )
-        .catch(
-          error => console.log(error)
-        )
+      if (currentUserRole === 2) {
+        getMyAppointments(currentToken)
+          .then(
+            output => {
+              const { data } = output
+              // Filtear array to get appointments before current dates
+              const pastAppointments = data.appointments.filter((appointment) =>
+                dayjs(appointment.appointment_on) < dayjs(new Date())
+              )
+              console.log(pastAppointments)
+              updatePastAppointments(pastAppointments)
+              // Filtear array to get upcomming appointments from current dates
+              const appointments = data.appointments.filter((appointment) =>
+                dayjs(appointment.appointment_on) >= dayjs(new Date())
+              )
+              console.log(appointments)
+              updateAppointments(appointments)
+            }
+          )
+          .catch(
+            error => console.log(error)
+          )
+      } else if (currentUserRole === 3) {
+        getDocAppointments(currentToken)
+          .then(
+            output => {
+              const { data } = output
+              // Filtear array to get appointments before current dates
+              const pastAppointments = data.appointments.filter((appointment) =>
+                dayjs(appointment.appointment_on) < dayjs(new Date())
+              )
+              console.log(pastAppointments)
+              updatePastAppointments(pastAppointments)
+              // Filtear array to get upcomming appointments from current dates
+              const appointments = data.appointments.filter((appointment) =>
+                dayjs(appointment.appointment_on) >= dayjs(new Date())
+              )
+              console.log(appointments)
+              updateAppointments(appointments)
+            }
+          )
+          .catch(
+            error => console.log(error)
+          )
+      }
     }
   }, [])
 

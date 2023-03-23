@@ -64,6 +64,33 @@ export const getMyAppointments = async (token) => {
   return await axios.get(`${root}/api/patient/appointments`, config)
 }
 
+export const getPatientUserInfo = async (token, body) => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }
+  return await axios.post(`${root}/api/patients/user/`, body, config)
+}
+
+export const getDoctorUserInfo = async (token, body) => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }
+  return await axios.post(`${root}/api/professionals/user/`, body, config)
+}
+
+export const getDocAppointments = async (token) => {
+  const config = {
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  }
+  return await axios.get(`${root}/api/professional/appointments`, config)
+}
+
 export const getTreatmentDetail = async (token, treatment) => {
   const config = {
     headers: {
