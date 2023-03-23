@@ -108,7 +108,7 @@ export const Appointments = () => {
       .catch(error => console.log(error))
   }
 
-  const selectThisUser = ({ target }) => {
+  const selectThisElement = ({ target }) => {
     if (target.checked) {
       selectedAppointments.push(target.id)
       console.log(selectedAppointments)
@@ -117,6 +117,57 @@ export const Appointments = () => {
       selectedAppointments.splice(index, 1)
       console.log(selectedAppointments)
     }
+  }
+
+  const renderAppointments = (appointments, actionsIsAllow) => {
+    return <Table responsive='md' striped='true' hover='true'>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>Start time</th>
+          <th>End time</th>
+          <th>Treatment</th>
+          <th>Doctor</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {appointments.map((appointment, index) => {
+          return <tr key={index}>
+              <td>
+                <Form.Check
+                  type={'checkbox'}
+                  defaultChecked={false}
+                  disabled={actionsIsAllow}
+                  id={appointment.id}
+                  onChange={ (event) => selectThisElement(event) }
+                >
+                </Form.Check>
+              </td>
+              <td>{dayjs(appointment.appointment_on).format('DD/MM/YYYY')}</td>
+              <td>{appointment.start_at}</td>
+              <td>{appointment.end_at}</td>
+              <td>{appointment.treatment_id}</td>
+              <td>{appointment.professional_id}</td>
+              <td><Button
+                    variant='info'
+                    size="sm"
+                    onClick={() => handleView(index)}
+                    disabled={actionsIsAllow}>
+                    View
+                </Button>{' '}
+                <Button
+                    variant='danger'
+                    size="sm"
+                    onClick={() => handleDelete(index)}
+                    disabled={actionsIsAllow}>
+                    Cancel
+                </Button></td>
+            </tr>
+        })}
+      </tbody>
+    </Table>
   }
 
   return (
@@ -141,104 +192,19 @@ export const Appointments = () => {
         </div>
         <div>
           <h6>Upcomming appointments</h6>
-          <Table responsive='md' striped='true' hover='true'>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Date</th>
-                <th>Start time</th>
-                <th>End time</th>
-                <th>Treatment</th>
-                <th>Doctor</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {appointments.map((appointment, index) => {
-                return <tr key={index}>
-                    <td>
-                      <Form.Check
-                        type={'checkbox'}
-                        defaultChecked={false}
-                        id={appointment.id}
-                        onChange={ (event) => selectThisUser(event) }
-                      >
-                      </Form.Check>
-                    </td>
-                    <td>{dayjs(appointment.appointment_on).format('DD/MM/YYYY')}</td>
-                    <td>{appointment.start_at}</td>
-                    <td>{appointment.end_at}</td>
-                    <td>{appointment.treatment_id}</td>
-                    <td>{appointment.professional_id}</td>
-                    <td><Button
-                          variant='info'
-                          size="sm"
-                          onClick={() => handleView(index)}
-                          disabled={ false }>
-                          View
-                      </Button>{' '}
-                      <Button
-                          variant='danger'
-                          size="sm"
-                          onClick={() => handleDelete(index)}
-                          disabled={ false }>
-                          Cancel
-                      </Button></td>
-                  </tr>
-              })}
-            </tbody>
-          </Table>
+          {console.log(appointments.length)}
+          {(appointments.length > 0)
+            ? renderAppointments(appointments, false)
+            : <span className="warningText">You do not have upcomming appointments in your history.</span>
+          }
         </div>
         <div>
           <h6>Previous appointments</h6>
-          <Table responsive='md' striped='true' hover='true'>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Date</th>
-                <th>Start time</th>
-                <th>End time</th>
-                <th>Treatment</th>
-                <th>Doctor</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {pastAppointments.map((pastAppointment, index) => {
-                return <tr key={index}>
-                    <td>
-                      <Form.Check
-                        type={'checkbox'}
-                        defaultChecked={false}
-                        disabled={true}
-                        id={pastAppointment.id}
-                        onChange={ (event) => selectThisUser(event) }
-                      >
-                      </Form.Check>
-                    </td>
-                    <td>{dayjs(pastAppointment.appointment_on).format('DD/MM/YYYY')}</td>
-                    <td>{pastAppointment.start_at}</td>
-                    <td>{pastAppointment.end_at}</td>
-                    <td>{pastAppointment.treatment_id}</td>
-                    <td>{pastAppointment.professional_id}</td>
-                    <td><Button
-                          variant='info'
-                          size="sm"
-                          onClick={() => handleView(index)}
-                          disabled={ true }>
-                          View
-                      </Button>{' '}
-                      <Button
-                          variant='danger'
-                          size="sm"
-                          onClick={() => handleDelete(index)}
-                          disabled={ true }>
-                          Cancel
-                      </Button></td>
-                  </tr>
-              })}
-            </tbody>
-          </Table>
+          {console.log(pastAppointments.length)}
+          {(pastAppointments.length > 0)
+            ? renderAppointments(pastAppointments, true)
+            : <span className="warningText">You do not have pass appointments in your history.</span>
+          }
         </div>
       </Stack>
     </Container>

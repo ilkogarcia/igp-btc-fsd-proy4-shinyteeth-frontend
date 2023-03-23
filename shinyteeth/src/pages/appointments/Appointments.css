@@ -8,3 +8,7 @@
     justify-content: start;
     align-content: start;
 }
+
+.warningText {
+    color: red;
+}
