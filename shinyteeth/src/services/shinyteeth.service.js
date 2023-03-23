@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-const root = 'http://localhost:3000'
+const root = 'https://avocadogeeks-btc-fsd-shinyteeth-production.up.railway.app/api/'
 
 export const logMeIn = async (body) => {
-  return await axios.post(`${root}/api/signin`, body)
+  return await axios.post(`${root}/signin`, body)
 }
 
 export const signMeUp = async (body) => {
-  return await axios.post(`${root}/api/signup`, body)
+  return await axios.post(`${root}/signup`, body)
 }
 
 export const getUserProfile = async (token, user) => {
@@ -16,7 +16,7 @@ export const getUserProfile = async (token, user) => {
       Authorization: 'Bearer ' + token
     }
   }
-  return await axios.get(`${root}/api/users/${user}`, config)
+  return await axios.get(`${root}/users/${user}`, config)
 }
 
 export const updateProfile = async (token, body) => {
@@ -25,7 +25,7 @@ export const updateProfile = async (token, body) => {
       Authorization: 'Bearer ' + token
     }
   }
-  return await axios.put(`${root}/api/updateprofile`, body, config)
+  return await axios.put(`${root}/updateprofile`, body, config)
 }
 
 export const updateUser = async (token, user, body) => {
@@ -34,7 +34,7 @@ export const updateUser = async (token, user, body) => {
       Authorization: 'Bearer ' + token
     }
   }
-  return await axios.put(`${root}/api/users/${user}`, body, config)
+  return await axios.put(`${root}/users/${user}`, body, config)
 }
 
 export const getAllUsers = async (token) => {
@@ -43,7 +43,7 @@ export const getAllUsers = async (token) => {
       Authorization: 'Bearer ' + token
     }
   }
-  return await axios.get(`${root}/api/users/`, config)
+  return await axios.get(`${root}/users/`, config)
 }
 
 export const deleteUser = async (token, user) => {
@@ -52,7 +52,7 @@ export const deleteUser = async (token, user) => {
       Authorization: 'Bearer ' + token
     }
   }
-  return await axios.delete(`${root}/api/users/${user}`, config)
+  return await axios.delete(`${root}/users/${user}`, config)
 }
 
 export const getMyAppointments = async (token) => {
@@ -61,7 +61,7 @@ export const getMyAppointments = async (token) => {
       Authorization: 'Bearer ' + token
     }
   }
-  return await axios.get(`${root}/api/patient/appointments`, config)
+  return await axios.get(`${root}/patient/appointments`, config)
 }
 
 export const getPatientUserInfo = async (token, body) => {
@@ -70,7 +70,7 @@ export const getPatientUserInfo = async (token, body) => {
       Authorization: 'Bearer ' + token
     }
   }
-  return await axios.post(`${root}/api/patients/user/`, body, config)
+  return await axios.post(`${root}/patients/user/`, body, config)
 }
 
 export const getDoctorUserInfo = async (token, body) => {
@@ -79,7 +79,7 @@ export const getDoctorUserInfo = async (token, body) => {
       Authorization: 'Bearer ' + token
     }
   }
-  return await axios.post(`${root}/api/professionals/user/`, body, config)
+  return await axios.post(`${root}/professionals/user/`, body, config)
 }
 
 export const getDocAppointments = async (token) => {
@@ -88,7 +88,7 @@ export const getDocAppointments = async (token) => {
       Authorization: 'Bearer ' + token
     }
   }
-  return await axios.get(`${root}/api/professional/appointments`, config)
+  return await axios.get(`${root}/professional/appointments`, config)
 }
 
 export const getTreatmentDetail = async (token, treatment) => {
@@ -97,7 +97,7 @@ export const getTreatmentDetail = async (token, treatment) => {
       Authorization: 'Bearer ' + token
     }
   }
-  return await axios.get(`${root}/api/dentaltreatments/${treatment}`, config)
+  return await axios.get(`${root}/dentaltreatments/${treatment}`, config)
 }
 
 export const getProfessionalDetail = async (token, professional) => {
@@ -106,7 +106,7 @@ export const getProfessionalDetail = async (token, professional) => {
       Authorization: 'Bearer ' + token
     }
   }
-  return await axios.get(`${root}/api/professionals/${professional}`, config)
+  return await axios.get(`${root}/professionals/${professional}`, config)
 }
 
 export const cancelAppointment = async (token, appointment) => {
@@ -115,5 +115,5 @@ export const cancelAppointment = async (token, appointment) => {
       Authorization: 'Bearer ' + token
     }
   }
-  return await axios.delete(`${root}/api/patient/appointments/${appointment}`, config)
+  return await axios.delete(`${root}/patient/appointments/${appointment}`, config)
 }
