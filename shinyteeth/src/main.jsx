@@ -1,14 +1,14 @@
-// Import react library
+// Import React library
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-// Import redux and app store
+// Import Redux and App store
 import { Provider } from 'react-redux'
-import { store } from './redux/store'
-import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
+import { store } from './redux/store'
 
-// Import react router library
+// Import React Router library
 import { BrowserRouter as Router } from 'react-router-dom'
 
 // Import App, components and stylesheets
