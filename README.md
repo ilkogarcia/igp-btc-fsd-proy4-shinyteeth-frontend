@@ -41,12 +41,13 @@ _* Appointment details (Patients view)._
 
 Everything can be improved and this project is no exception. :) Some little things that I have pending to incorporate in the near future.
 
+- refactor: Write tests for each React component
+- fix: Axios interceptor to inject token in the request header
 - feat: As a user, I want to reset my password
 - feat: As a user, I want to reschedule an appointments
 - feat: As a user, I want to get a new appointment
 - feat: As an Admin, I want to CRUD medical specialties
 - feat: As an Admin, I want to CRUD medical tretments
-- fix: Axios interceptor to inject token in the request header
 
 ---
 ## Run Locally
@@ -151,6 +152,24 @@ Some packages used might change so you should run `npm update` to ensure all pac
 - [Redux Toolkit](https://developer.mozilla.org/en-US/docs/Web/CSS): toolset for efficient Redux development.
   
 _Additionaly we use [Cloudinary](https://cloudinary.com/) API to store, transform, optimize, and deliver all media assets._
+
+
+---
+## Best practices
+
+I have tried to follow this best practices when coding:
+
+- Using functional components and hooks instead of classes. Use functional components and hooks more often as they result in more concise and readable code compared to classes
+- Avoid using state (if possible). Avoid using state as much as possible since the more state you use, the more data you have to keep track of across your app.
+- Use component-centric folder structure. Organize files related to the same component in one folder. 
+- Avoid using indexes as key props. Use a unique value as the index to ensure that the identity of the list item is maintained.
+- Opt for fragments instead of divs where possible. Using <div> increases the DOM size.
+- Follow naming conventions. Use camelCase for functions declared inside React components like handleInput() or showElement().
+- Avoid repetitive code.  Break down the project into small components I can reuse across the application.
+- Use object destructuring for props. Instead of passing the props object, use object destructuring to pass the prop name. This discards the need to refer to the props object each time you need to use it.
+- Dynamically render arrays using map.
+
+_I have pending to include the [Jest](https://jestjs.io/) testing frameworks in this project and write tests for each react component as it reduces the possibility of errors._
 
 ---
 ## Feedback and support
