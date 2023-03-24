@@ -35,7 +35,7 @@ export const App = () => {
     // Load Google fonts used on App
     WebFont.load({
       google: {
-        families: ['Montserrat', 'Karla']
+        families: ['Montserrat', 'Karla', 'Merriweather']
       }
     })
   }, [])

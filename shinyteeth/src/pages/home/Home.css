@@ -52,8 +52,22 @@
 }
 
 .headline {
-    font-family: 'Karla';
+    font-family: 'Merriweather';
     font-size: 2rem;
+    font-weight: 400;
+    color: whitesmoke;
+    font-style: oblique;
+}
+
+.headlineAuthor {
+    font-family: 'Karla';
+    font-size: 1.4rem;
     font-weight: 100;
     color: whitesmoke;
+    font-style: oblique;
+}
+
+.headlineImage {
+    border: solid 5px white;
+    border-radius: 50%;
 }

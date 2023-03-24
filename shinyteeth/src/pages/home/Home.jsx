@@ -17,9 +17,6 @@ import { Cloudinary } from '@cloudinary/url-gen'
 
 // Import any actions required for transformations
 import { fill } from '@cloudinary/url-gen/actions/resize'
-import { sepia, outline } from '@cloudinary/url-gen/actions/effect'
-import { byRadius } from '@cloudinary/url-gen/actions/roundCorners'
-import { outer } from '@cloudinary/url-gen/qualifiers/outlineMode'
 
 export const Home = () => {
   const handleClic = (event) => {
@@ -37,7 +34,7 @@ export const Home = () => {
   const myImage = cld.image('shinyteeth/pexels-bakytzhan-9951388_pplpuj')
 
   // Transform the image.
-  myImage.resize(fill().width(150).height(150))
+  myImage.resize(fill().width(250).height(250))
 
   return (
     <div className='mainHomeContainer'>
@@ -70,10 +67,11 @@ export const Home = () => {
           <Container fluid>
             <Row className="justify-content-center">
               <Col xs lg='4'>
-                <AdvancedImage cldImg={ myImage } />
+                <AdvancedImage cldImg={ myImage } className='headlineImage'/>
               </Col>
               <Col xs lg='6'>
-                <p className='headline'>Somos una clínicas accesible y multidisciplinar, con profesionales altamente cualificados y en constante actualización.</p>
+                <blockquote className='headline'>We are an accessible and multidisciplinary clinic, with highly qualified professionals who are constantly updated..</blockquote>
+                <span className='headlineAuthor'>Juliana Pérez. CEO. Shiny Teeth</span>
               </Col>
             </Row>
           </Container>
