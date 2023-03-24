@@ -37,19 +37,16 @@ _* My appointments (Patients view)._
 _* Appointment details (Patients view)._
 
 ---
-## Demo
-
-Insert gif or link to demo
-
----
 ## Roadmap
 
-- Request for new medical appointments
-- Changes to previously scheduled appointments
-- Reset my password
-- CRUD of medical specialties
-- CRUD of medical treatments
-- Fix Axios interceptor to inject token in request header
+Everything can be improved and this project is no exception. :) Some little things that I have pending to incorporate in the near future.
+
+- feat: As a user, I want to reset my password
+- feat: As a user, I want to reschedule an appointments
+- feat: As a user, I want to get a new appointment
+- feat: As an Admin, I want to CRUD medical specialties
+- feat: As an Admin, I want to CRUD medical tretments
+- fix: Axios interceptor to inject token in the request header
 
 ---
 ## Run Locally
